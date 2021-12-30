@@ -3,21 +3,18 @@ package ru.sikuda.mobile.todo_activity
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
 class CustomAdapter internal constructor(
-    private val activity: Activity,
-    private val context: Context,
+    val activity: Activity,
+    val context: Context,
     private val book_id: ArrayList<*>,
     private val book_title: ArrayList<*>,
     private val book_author: ArrayList<*>,
@@ -30,12 +27,18 @@ class CustomAdapter internal constructor(
         return MyViewHolder(view)
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    //@RequiresApi(api = Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.book_id_txt.text = book_id[position].toString()
         holder.book_title_txt.text = book_title[position].toString()
         holder.book_author_txt.text = book_author[position].toString()
         holder.book_pages_txt.text = book_pages[position].toString()
+
+        //Animation RecycleView
+        holder.mainLayout.animation = AnimationUtils.loadAnimation(
+            context, R.anim.translate_anim
+        )
+
         //Recyclerview onClickListener
         holder.mainLayout.setOnClickListener {
             val intent = Intent(context, UpdateActivity::class.java)
@@ -65,12 +68,6 @@ class CustomAdapter internal constructor(
             book_author_txt = itemView.findViewById(R.id.book_author_txt)
             book_pages_txt = itemView.findViewById(R.id.book_pages_txt)
             mainLayout = itemView.findViewById(R.id.mainLayout)
-
-//            //Animate Recyclerview
-//            val translate_anim = AnimationUtils.loadAnimation(
-//                context, R.anim.translate_anim
-//            )
-//            mainLayout.animation = translate_anim
         }
     }
 }

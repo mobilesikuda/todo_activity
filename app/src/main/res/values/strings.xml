@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">todo_activity</string>
+    <string name="add_record_to_base">Add record to base</string>
+    <string name="no_data">No data</string>
 </resources>
